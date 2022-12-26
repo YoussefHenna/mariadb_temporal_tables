@@ -1,0 +1,16 @@
+class AddApplicationVersioningTo<%= table_name.capitalize %> < ActiveRecord::Migration<%= migration_version %>
+  def change
+    execute <<-SQL
+      ALTER TABLE <%= table_name %>
+      <% if add_columns %>
+        ADD COLUMN <%= start_column_name %> <%= column_type %>,
+        ADD COLUMN <%= end_column_name %> <%= column_type %>,
+      <% end %>
+        ADD PERIOD FOR p(<%= start_column_name %>,<%= end_column_name %>),
+      <% if replace_primary_key %>
+        DROP PRIMARY KEY,
+        ADD PRIMARY KEY(id, <%= end_column_name %>)
+      <% end %>
+    SQL
+  end
+end
