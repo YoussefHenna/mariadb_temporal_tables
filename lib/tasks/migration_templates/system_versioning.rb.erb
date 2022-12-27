@@ -1,0 +1,20 @@
+class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version %>
+
+  def change
+    <%- if @template_options[:include_change_list] -%>
+    add_column :<%= @template_options[:table_name] %>, :change_list, :text
+    <%- end -%>
+    <%- if @template_options[:include_author_reference] -%>
+    add_column :<%= @template_options[:table_name] %>, :author_id, :bigint
+    add_foreign_key :<%= @template_options[:table_name] %>, :<%= @template_options[:author_table_name] %>, column: :author_id, primary_key: :id
+    <%- end -%>
+    execute <<-SQL
+      ALTER TABLE <%= @template_options[:table_name] %>
+        ADD COLUMN <%= @template_options[:start_column_name] %> TIMESTAMP(6) GENERATED ALWAYS AS ROW START,
+        ADD COLUMN <%= @template_options[:end_column_name] %> TIMESTAMP(6) GENERATED ALWAYS AS ROW END,
+        ADD PERIOD FOR SYSTEM_TIME(<%= @template_options[:start_column_name] %>, <%= @template_options[:end_column_name] %>),
+        ADD SYSTEM VERSIONING;
+    SQL
+  end
+
+end

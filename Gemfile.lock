@@ -156,10 +156,10 @@ PLATFORMS
 
 DEPENDENCIES
   mariadb_temporal_tables!
-  minitest
+  minitest (~> 5.16.3)
   rails (~> 7.0.4)
-  rake
-  simplecov
+  rake (~> 13.0.6)
+  simplecov (~> 0.21.2)
 
 BUNDLED WITH
    2.3.24
