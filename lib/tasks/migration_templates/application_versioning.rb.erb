@@ -1,15 +1,15 @@
-class AddApplicationVersioningTo<%= table_name.capitalize %> < ActiveRecord::Migration<%= migration_version %>
+class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version %>
   def change
     execute <<-SQL
-      ALTER TABLE <%= table_name %>
-      <% if add_columns %>
-        ADD COLUMN <%= start_column_name %> <%= column_type %>,
-        ADD COLUMN <%= end_column_name %> <%= column_type %>,
+      ALTER TABLE <%= @template_options[:table_name] %>
+      <% if @template_options[:add_columns] %>
+        ADD COLUMN <%= @template_options[:start_column_name] %> <%= @template_options[:column_type] %>,
+        ADD COLUMN <%= @template_options[:end_column_name] %> <%= @template_options[:column_type] %>,
       <% end %>
-        ADD PERIOD FOR p(<%= start_column_name %>,<%= end_column_name %>),
-      <% if replace_primary_key %>
+        ADD PERIOD FOR p(<%= @template_options[:start_column_name] %>,<%= @template_options[:end_column_name] %>),
+      <% if @template_options[:replace_primary_key] %>
         DROP PRIMARY KEY,
-        ADD PRIMARY KEY(id, <%= end_column_name %>)
+        ADD PRIMARY KEY(id, <%= @template_options[:end_column_name] %>)
       <% end %>
     SQL
   end

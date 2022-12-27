@@ -29,14 +29,14 @@ namespace :mariadb_temporal_tables do
 
     generator = MigrationGenerator.new
     generator.generate_migration(migration_name,
-                       "application_versioning.rb.erb",
-                       { replace_primary_key: replace_primary_key,
-                         add_columns: add_columns,
-                         column_type: column_type,
-                         start_column_name: start_column_name,
-                         end_column_name: end_column_name,
-                         table_name: table_name
-                       })
+                                 "application_versioning.rb.erb",
+                                 { :replace_primary_key => replace_primary_key,
+                                   :add_columns => add_columns,
+                                   :column_type => column_type,
+                                   :start_column_name => start_column_name,
+                                   :end_column_name => end_column_name,
+                                   :table_name => table_name
+                                 })
 
     puts "Migration generated successfully"
   end
