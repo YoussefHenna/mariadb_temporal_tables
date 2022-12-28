@@ -10,7 +10,7 @@ module MariaDBTemporalTables
 
       def versions(order = "ASC")
         where_clause = self.class.generate_where_clause_for_id(self.class.try(:primary_keys), self.id)
-        query = "SELECT * FROM #{self.class.table_name} FOR SYSTEM_TIME ALL #{where_clause} ORDER BY #{self.class.end_column_name} #{order}"
+        query = "SELECT * FROM #{self.class.table_name} FOR SYSTEM_TIME ALL #{where_clause} ORDER BY #{self.class.system_versioning_end_column_name} #{order}"
         self.class.find_by_sql [query]
       end
 
@@ -83,14 +83,14 @@ module MariaDBTemporalTables
     end
 
     class_methods do
-      attr_reader :start_column_name, :end_column_name, :exclude_revert, :exclude_change_list
+      attr_reader :system_versioning_start_column_name, :system_versioning_end_column_name, :exclude_revert, :exclude_change_list
 
       def system_versioning_options(options)
-        @start_column_name = options[:start_column_name] || "transaction_start"
-        @end_column_name = options[:end_column_name] || "transaction_end"
+        @system_versioning_start_column_name = options[:start_column_name] || "transaction_start"
+        @system_versioning_end_column_name = options[:end_column_name] || "transaction_end"
 
         default_exclude = %w[id author_id change_list]
-        @exclude_revert = (options[:exclude_revert] || []) + default_exclude + [@start_column_name, @end_column_name]
+        @exclude_revert = (options[:exclude_revert] || []) + default_exclude + [@system_versioning_start_column_name, @system_versioning_end_column_name]
         @exclude_change_list = (options[:exclude_change_list] || []) + default_exclude
 
         self.primary_key = options[:primary_key] || :id
