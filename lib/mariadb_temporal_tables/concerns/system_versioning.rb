@@ -33,7 +33,7 @@ module MariaDBTemporalTables
 
       def add_author
         if self.class.column_names.include? "author_id"
-          author = Thread.current[:mariadb_temporal_tables_current_user]
+          author = Thread.current[:mariadb_temporal_tables_current_author]
           if author
             self.author_id = author.id
           else
