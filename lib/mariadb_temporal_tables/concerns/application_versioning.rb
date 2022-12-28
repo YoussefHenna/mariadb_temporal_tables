@@ -5,13 +5,13 @@ module MariaDBTemporalTables
     extend ActiveSupport::Concern
 
     included do
-      application_versioning_options({}) # Initialize with default options
+      application_versioning_options # Initialize with default options
     end
 
     class_methods do
       attr_reader :application_versioning_start_column_name, :application_versioning_end_column_name
 
-      def application_versioning_options(options)
+      def application_versioning_options(options = {})
         @application_versioning_start_column_name = options[:start_column_name] || "valid_start"
         @application_versioning_end_column_name = options[:end_column_name] || "valid_end"
 

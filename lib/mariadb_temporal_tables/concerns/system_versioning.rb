@@ -5,7 +5,7 @@ module MariaDBTemporalTables
     extend ActiveSupport::Concern
 
     included do
-      system_versioning_options({}) # Initialize with default options
+      system_versioning_options # Initialize with default options
       before_save :add_author, :add_change_list
 
       def versions(order = "ASC")
@@ -85,7 +85,7 @@ module MariaDBTemporalTables
     class_methods do
       attr_reader :system_versioning_start_column_name, :system_versioning_end_column_name, :exclude_revert, :exclude_change_list
 
-      def system_versioning_options(options)
+      def system_versioning_options(options = {})
         @system_versioning_start_column_name = options[:start_column_name] || "transaction_start"
         @system_versioning_end_column_name = options[:end_column_name] || "transaction_end"
 
