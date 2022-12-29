@@ -167,11 +167,11 @@ YourModel.find_by_sql("YOUR_SQL_QUERY", [YOUR_BINDS_IF_ANY])
 
 `application_versioning_options`
 
-| option                 | type                    | default         | description                                                                                       |
-|------------------------|-------------------------|-----------------|---------------------------------------------------------------------------------------------------|
-| `:start_column_name`   | `String`                | `"valid_start"` | Name of column that represents start of period of application versioning (has to match migration) |
-| `:end_column_name`     | `String`                | `"valid_end"`   | Name of column that represents end of period of application versioning (has to match migration)   |
-| `:primary_key`         | `Symbol/Array<Symbol>`  | `:id`           | Primary key to be set as the model primary key (can be single or composite key)                   |
+| option                 | type                    | default                   | description                                                                                       |
+|------------------------|-------------------------|---------------------------|---------------------------------------------------------------------------------------------------|
+| `:start_column_name`   | `String`                | `"valid_start"`           | Name of column that represents start of period of application versioning (has to match migration) |
+| `:end_column_name`     | `String`                | `"valid_end"`             | Name of column that represents end of period of application versioning (has to match migration)   |
+| `:primary_key`         | `Symbol/Array<Symbol>`  | `[:id, end_column_name]`  | Primary key to be set as the model primary key (can be single or composite key)                   |
 
 
 #### Methods
