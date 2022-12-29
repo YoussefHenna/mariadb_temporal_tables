@@ -24,12 +24,12 @@ module MariaDBTemporalTables
 
       # Revert the current object to a specific version of an object with given id and at the time of end_value
       # @param id [Integer, String, Array<String>] id of the object to revert to
-      # @param [Time, String] end_value time at which to revert to
-      # @return [true] when successful
-      def revert(id, end_value)
-        parsed_time = self.class.parse_time(end_value)
+      # @param [Time, String] as_of_time time at which to revert to
+      # @return [Boolean] true when successful
+      def revert(id, as_of_time)
+        parsed_time = self.class.parse_time(as_of_time)
         where_clause = self.class.generate_where_clause_for_id(self.class.try(:primary_keys), id)
-        query = "SELECT * FROM #{self.class.table_name} FOR SYSTEM_TIME AS OF ? #{where_clause} LIMIT 1"
+        query = "SELECT * FROM #{self.class.table_name} FOR SYSTEM_TIME AS OF TIMESTAMP? #{where_clause} LIMIT 1"
         query_result = self.class.find_by_sql([query, parsed_time])
 
         unless query_result
@@ -110,7 +110,7 @@ module MariaDBTemporalTables
 
         default_exclude = %w[id author_id change_list]
         @exclude_revert = (options[:exclude_revert] || []) + default_exclude + [@system_versioning_start_column_name, @system_versioning_end_column_name]
-        @exclude_change_list = (options[:exclude_change_list] || []) + default_exclude
+        @exclude_change_list = (options[:exclude_change_list] || []) + default_exclude + [@system_versioning_start_column_name, @system_versioning_end_column_name]
 
         self.primary_key = options[:primary_key] || :id
       end

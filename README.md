@@ -121,6 +121,7 @@ If the need for a more complex and custom query is needed, this can done through
 ```ruby
 YourModel.find_by_sql("YOUR_SQL_QUERY", [YOUR_BINDS_IF_ANY])
 ```
+Some class instance methods are provided by the concerns that can be used in these queries `system_versioning_start_column_name`, `system_versioning_end_column_name`, `application_versioning_start_column_name`, `application_versioning_end_column_name`
 
 ### Options & Methods
 
@@ -178,15 +179,15 @@ YourModel.find_by_sql("YOUR_SQL_QUERY", [YOUR_BINDS_IF_ANY])
 
 `SystemVersioning`
 
-| method                       | class or instance method | description                                                                                             |
-|------------------------------|--------------------------|---------------------------------------------------------------------------------------------------------|
-| `versions(order)`            | instance                 | Get all the previous versions of a record                                                               |
-| `revert(id, end_value) `     | instance                 | Revert the current object to a specific version of an object with given id and at the time of end_value |
-| `all_as_of`                  | class                    | Equivalent to rails `all` but with a given as of time                                                   |
-| `order_as_of`                | class                    | Equivalent to rails `order` but with a given as of time                                                 |
-| `where_as_of`                | class                    | Equivalent to rails `where` but with a given as of time                                                 |
-| `find_as_of`                 | class                    | Equivalent to rails `find` but with a given as of time                                                  |
-| `versions_count_for_author`  | class                    | Gets the number of versions that an author has created                                                  |
+| method                      | class or instance method | description                                                                         |
+|-----------------------------|--------------------------|-------------------------------------------------------------------------------------|
+| `versions`                  | instance                 | Get all the previous versions of a record                                           |
+| `revert `                   | instance                 | Revert the current object to a specific version of an object with given id and time |
+| `all_as_of`                 | class                    | Equivalent to rails `all` but with a given as of time                               |
+| `order_as_of`               | class                    | Equivalent to rails `order` but with a given as of time                             |
+| `where_as_of`               | class                    | Equivalent to rails `where` but with a given as of time                             |
+| `find_as_of`                | class                    | Equivalent to rails `find` but with a given as of time                              |
+| `versions_count_for_author` | class                    | Gets the number of versions that an author has created                              |
 
 <br>
 
