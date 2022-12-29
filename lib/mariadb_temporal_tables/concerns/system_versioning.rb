@@ -99,8 +99,8 @@ module MariaDBTemporalTables
 
       # Sets options for system versioning
       # @param [Hash] options the options to use for system versioning
-      # @option options [String] :start_column_name the name of the column that indicates start of validity
-      # @option options [String] :end_column_name the name of the column that indicates end of validity
+      # @option options [String] :start_column_name the name of the column that indicates start of validity of system versioning
+      # @option options [String] :end_column_name the name of the column that indicates end of validity of system versioning
       # @option options [Array<String>] :exclude_revert list of column names that should be excluded when reverting a record
       # @option options [Array<String>] :exclude_change_list list of column names that should be excluded when generating the change list
       # @option options [Symbol, Array<Symbol>] :primary_key primary key to be set as the model primary key (can be single or composite key)

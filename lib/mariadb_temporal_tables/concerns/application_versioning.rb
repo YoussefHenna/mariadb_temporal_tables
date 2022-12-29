@@ -18,8 +18,8 @@ module MariaDBTemporalTables
 
       # Sets options for application versioning
       # @param [Hash] options the options to use for application versioning
-      # @option options [String] :start_column_name the name of the column that indicates start of validity
-      # @option options [String] :end_column_name the name of the column that indicates end of validity
+      # @option options [String] :start_column_name the name of the column that indicates start of validity of application versioning
+      # @option options [String] :end_column_name the name of the column that indicates end of validity of application versioning
       # @option options [Symbol, Array<Symbol>] :primary_key primary key to be set as the model primary key (can be single or composite key)
       def application_versioning_options(options = {})
         @application_versioning_start_column_name = options[:start_column_name] || "valid_start"
