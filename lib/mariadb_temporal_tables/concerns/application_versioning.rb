@@ -80,13 +80,13 @@ module MariaDBTemporalTables
             return date_or_time
           end
 
-          return DateTime.parse(date_or_time)
+          return Time.zone.parse(date_or_time)
         when :timestamp
           if date_or_time.is_a? Time
             return date_or_time
           end
 
-          return Time.parse(date_or_time)
+          return Time.zone.parse(date_or_time)
         else
           if date_or_time.is_a? Date
             return date_or_time

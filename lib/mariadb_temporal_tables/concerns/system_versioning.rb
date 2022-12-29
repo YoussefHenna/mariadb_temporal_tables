@@ -182,7 +182,7 @@ module MariaDBTemporalTables
           return time
         end
 
-        Time.parse(time)
+        Time.zone.parse(time)
       end
 
       # In case a composite key is used, this generates where clause considering composite keys
