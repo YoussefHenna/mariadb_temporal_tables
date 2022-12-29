@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mariadb_temporal_tables (0.0.0)
+    mariadb_temporal_tables (0.1.1)
 
 GEM
   remote: https://rubygems.org/
