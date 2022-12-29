@@ -1,6 +1,11 @@
 require "active_support/concern"
 
 module MariaDBTemporalTables
+
+  # <tt>ActiveSupport::Concern</tt> that adds methods to the associated model that utilize MariaDB application-time periods
+  #
+  # <tt>application_versioning_options</tt> can be called in the model to set options for this concern
+  # See ApplicationVersioning#application_versioning_options
   module ApplicationVersioning
     extend ActiveSupport::Concern
 
@@ -11,6 +16,11 @@ module MariaDBTemporalTables
     class_methods do
       attr_reader :application_versioning_start_column_name, :application_versioning_end_column_name
 
+      # Sets options for application versioning
+      # @param [Hash] options the options to use for application versioning
+      # @option options [String] :start_column_name the name of the column that indicates start of validity
+      # @option options [String] :end_column_name the name of the column that indicates end of validity
+      # @option options [Symbol, Array<Symbol>] :primary_key primary key to be set as the model primary key (can be single or composite key)
       def application_versioning_options(options = {})
         @application_versioning_start_column_name = options[:start_column_name] || "valid_start"
         @application_versioning_end_column_name = options[:end_column_name] || "valid_end"
@@ -18,12 +28,19 @@ module MariaDBTemporalTables
         self.primary_key = options[:primary_key] || [:id, @application_versioning_end_column_name]
       end
 
+      # Gets all records that were valid at the given time
+      # @param [Time, DateTime, Date, String] valid_at used to get records valid at this time
       def all_valid_at(valid_at)
         parsed_date = parse_date_or_time(valid_at)
         query = "SELECT * FROM #{table_name} WHERE ? BETWEEN #{@application_versioning_start_column_name} AND #{@application_versioning_end_column_name}"
         return find_by_sql [query, parsed_date]
       end
 
+      # Gets all records that were valid at the given time ordered by the given order attributes
+      # @param [Time, DateTime, Date, String] valid_at used to get records valid at this time
+      # @param [String] order order to be used on the SQL query ("ASC" or "DESC")
+      # @param [Array<String>, Array<Symbol>] order_attributes list of attributes to order by
+      # @return [Array<ActiveRecord::Base>] array of active record objects of the current model ordered
       def order_valid_at(valid_at, order = "ASC", *order_attributes)
         parsed_date = parse_date_or_time(valid_at)
         order_attributes_s = order_attributes.join(", ")
@@ -31,6 +48,10 @@ module MariaDBTemporalTables
         return find_by_sql [query, parsed_date]
       end
 
+      # Gets all records that were valid at the given time filtered by the given where attributes
+      # @param [Time, DateTime, Date, String] valid_at used to get records valid at this time
+      # @param [Hash] where_attributes key-value hash to be used to generate where clause (where key='value' for each)
+      # @return [Array<ActiveRecord::Base>] array of active record objects of the current model filtered by attributes
       def where_valid_at(valid_at, where_attributes)
         parsed_date = parse_date_or_time(valid_at)
 
