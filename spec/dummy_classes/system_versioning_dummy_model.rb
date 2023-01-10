@@ -1,3 +1,4 @@
+# Exposes some variables/methods that are required to successfully run system versioning tests
 
 class SystemVersioningDummyModel
   def self.primary_key=(key) end
