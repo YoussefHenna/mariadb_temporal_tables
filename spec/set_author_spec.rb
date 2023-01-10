@@ -1,9 +1,5 @@
+require 'dummy_classes/dummy_author_class'
 
-class DummyAuthorClass
-  def initialize
-    @id = 1
-  end
-end
 
 RSpec.describe "Thread.current[:mariadb_temporal_tables_current_author]" do
   context "after system_versioning_set_author called" do
