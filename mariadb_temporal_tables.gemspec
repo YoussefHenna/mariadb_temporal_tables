@@ -22,7 +22,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rails", "~> 7.0.4"
   s.add_development_dependency "simplecov", "~> 0.21.2"
-  s.add_development_dependency "minitest", "~> 5.16.3"
+  s.add_development_dependency "rspec", "~> 3.12.0"
   s.add_development_dependency "rake", "~> 13.0.6"
+  s.add_development_dependency "rspec-rails", "~> 6.0.1"
 
 end
