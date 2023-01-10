@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "mariadb_temporal_tables"
-  s.version = "0.1.3"
+  s.version = "0.2"
   s.summary = "Adds support for MariaDB's temporal tables"
   s.description = "Adds support for MariaDB's System-Versioned tables and Application Time periods into Rails based applications"
   s.authors = ["Youssef Henna"]
