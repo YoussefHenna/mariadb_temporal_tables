@@ -191,7 +191,7 @@ Some class instance methods are provided by the concerns that can be used in the
 
 <br>
 
-`ApplicationVesioning`
+`ApplicationVersioning`
 
 | method                       | class or instance method | description                                             |
 |------------------------------|--------------------------|---------------------------------------------------------|
